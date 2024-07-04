@@ -1,5 +1,6 @@
 mod server;
 mod test;
+mod screen;
 
 use server::AppServer;
 
@@ -11,4 +12,5 @@ async fn main() {
 
 fn setup_routes(app: AppServer) -> AppServer {
     app.merge(test::routes::router())
+        .merge(screen::routes::router())
 }
