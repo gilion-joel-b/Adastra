@@ -1,4 +1,4 @@
 pub mod router;
-pub mod controller;
+pub mod handler;
 pub mod domain;
-
+pub mod service;
