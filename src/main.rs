@@ -3,7 +3,9 @@ use std::net::{Ipv4Addr, SocketAddrV4};
 use axum::{routing::get, Extension, Router};
 use yahoo_finance_api::YahooConnector;
 
+mod common;
 mod stock;
+
 
 const LOCALHOST: SocketAddrV4 = SocketAddrV4::new(Ipv4Addr::new(127, 0, 0, 1), 8080);
 

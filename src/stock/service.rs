@@ -33,4 +33,13 @@ impl StockService {
             .ok_or_else(|| YahooError::EmptyDataSet)
     }
 
+    pub async fn get_monthly_historical_prices(
+        self,
+        ticker: String,
+    ) -> Result<Vec<yahoo_finance_api::Quote>, YahooError> {
+        self.client
+            .get_quote_range(&ticker, "1d", "1mo")
+            .await?
+            .quotes()
+    }
 }

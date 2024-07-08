@@ -1,9 +1,11 @@
 use serde::Serialize;
 
 #[derive(Serialize)]
-pub struct Stock{
+pub struct Stock {
     ticker: String,
     name: String,
+
+    #[serde(serialize_with = "crate::common::serialize::format_price")]
     price: f64,
 }
 
@@ -15,5 +17,4 @@ impl Stock {
             price,
         }
     }
-    
 }
