@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 axum = "0.7.5"
+polars = { version = "0.41.3", features = ["lazy"] }
 serde = { version = "1.0", features = ["derive"] }
 tokio = {version = "1.38.0", features = ["full"]}
 yahoo_finance_api = "2.2.1"

@@ -38,8 +38,14 @@ impl StockService {
         ticker: String,
     ) -> Result<Vec<yahoo_finance_api::Quote>, YahooError> {
         self.client
-            .get_quote_range(&ticker, "1d", "1mo")
+            .get_quote_range(&ticker, "1m", "1d")
             .await?
             .quotes()
+    }
+
+
+    async fn get_daily_average_price(self, ticker: String) -> Result<Vec<yahoo_finance_api::Quote>, YahooError> {
+        let q = self.client.get_quote_range(&ticker, "1m", "1d").await?
+            .quotes();
     }
 }

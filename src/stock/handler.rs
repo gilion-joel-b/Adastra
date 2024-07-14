@@ -8,7 +8,7 @@ pub async fn get_stock(
         .search_stock_by_ticker(ticker)
         .await
         .map(|stock| Json(stock).into_response())
-        .unwrap_or_else(|_| StatusCode::NOT_FOUND.into_response())
+        .unwrap_or_else(|e| (StatusCode::NOT_FOUND, e.to_string()).into_response())
 }
 
 pub async fn get_history(
