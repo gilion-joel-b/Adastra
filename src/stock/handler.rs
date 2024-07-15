@@ -21,3 +21,4 @@ pub async fn get_history(
         .map(|history| Json(history).into_response())
         .unwrap_or_else(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response())
 }
+
