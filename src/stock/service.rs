@@ -1,5 +1,6 @@
 use std::sync::Arc;
 
+use polars::{df, frame::DataFrame};
 use yahoo_finance_api::{YahooConnector, YahooError};
 
 use super::domain::Stock;
@@ -46,6 +47,18 @@ impl StockService {
 
     async fn get_daily_average_price(self, ticker: String) -> Result<Vec<yahoo_finance_api::Quote>, YahooError> {
         let q = self.client.get_quote_range(&ticker, "1m", "1d").await?
-            .quotes();
+            .quotes()?;
+
+
+        let mut df: DataFrame = df!(
+            "date" => q.iter().map(|quote| quote.timestamp).collect::<Vec<_>>(),
+            "open" => q.iter().map(|quote| quote.open).collect::<Vec<_>>(),
+            "close" => q.iter().map(|quote| quote.close).collect::<Vec<_>>(),
+            "high" => q.iter().map(|quote| quote.high).collect::<Vec<_>>(),
+            "low" => q.iter().map(|quote| quote.low).collect::<Vec<_>>()
+        ).unwrap();
+
+
+        Ok(q)
     }
 }
