@@ -44,7 +44,7 @@ impl StockService {
             .quotes()
     }
 
-    async fn get_daily_average_price(
+    pub async fn get_daily_average_price(
         self,
         ticker: String,
     ) -> Result<DataFrame, YahooError> {

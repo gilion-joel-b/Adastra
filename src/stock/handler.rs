@@ -22,3 +22,12 @@ pub async fn get_history(
         .unwrap_or_else(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response())
 }
 
+pub async fn get_daily_average(
+    Path(ticker): Path<String>,
+    Extension(stock_service): Extension<super::service::StockService>, 
+) -> impl IntoResponse {
+    stock_service.get_daily_average_price(ticker)
+        .await
+        .map(|df| Json(df).into_response())
+        .unwrap_or_else(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response())
+}
